@@ -5,18 +5,19 @@ go 1.20
 require (
 	github.com/baetyl/baetyl-go/v2 v2.2.3
 	github.com/conduitio/bwlimit v0.1.0
+	github.com/creasty/defaults v1.4.0
 	github.com/panjf2000/ants/v2 v2.9.1
 	github.com/qiangxue/fasthttp-routing v0.0.0-20160225050629-6ccdc2a18d87
 	github.com/stretchr/testify v1.8.2
 	github.com/valyala/fasthttp v1.49.0
 	go.uber.org/zap v1.16.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
+	gopkg.in/yaml.v3 v3.0.1
 	gorm.io/gorm v1.25.9
 )
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
-	github.com/creasty/defaults v1.4.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
@@ -41,7 +42,6 @@ require (
 	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
 	gopkg.in/validator.v2 v2.0.0-20191107172027-c3144fdedc21 // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.0.0-20190817020851-f2f3a405f61d // indirect
 	k8s.io/klog v0.3.1 // indirect
 )

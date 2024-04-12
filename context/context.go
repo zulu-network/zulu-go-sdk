@@ -7,9 +7,9 @@ import (
 	"syscall"
 
 	"github.com/baetyl/baetyl-go/v2/errors"
-	"github.com/baetyl/baetyl-go/v2/utils"
 
 	"github.com/zulu-network/zulu-go-sdk/log"
+	"github.com/zulu-network/zulu-go-sdk/utils"
 )
 
 // Context of service
@@ -52,7 +52,6 @@ func NewContext(confFile string) Context {
 	err := c.LoadCustomConfig(sc)
 	if err != nil {
 		c.log.Error("failed to load system config, to use default config", log.Error(err))
-		utils.UnmarshalYAML(nil, sc)
 	}
 
 	_log, err := log.Init(sc.Logger, lfs...)
