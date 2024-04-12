@@ -6,8 +6,7 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
-
+	"github.com/zulu-network/zulu-go-sdk/errors"
 	"github.com/zulu-network/zulu-go-sdk/log"
 	"github.com/zulu-network/zulu-go-sdk/utils"
 )

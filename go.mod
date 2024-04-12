@@ -3,7 +3,7 @@ module github.com/zulu-network/zulu-go-sdk
 go 1.20
 
 require (
-	github.com/baetyl/baetyl-go/v2 v2.2.3
+	//github.com/baetyl/baetyl-go/v2 v2.2.3
 	github.com/conduitio/bwlimit v0.1.0
 	github.com/creasty/defaults v1.4.0
 	github.com/panjf2000/ants/v2 v2.9.1

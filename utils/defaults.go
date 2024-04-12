@@ -5,7 +5,7 @@ import (
 
 	"github.com/creasty/defaults"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
+	"github.com/zulu-network/zulu-go-sdk/errors"
 )
 
 // SetDefaults set default values

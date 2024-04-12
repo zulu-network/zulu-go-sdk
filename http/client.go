@@ -13,8 +13,7 @@ import (
 	"github.com/conduitio/bwlimit"
 	"github.com/panjf2000/ants/v2"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
-
+	"github.com/zulu-network/zulu-go-sdk/errors"
 	"github.com/zulu-network/zulu-go-sdk/log"
 )
 

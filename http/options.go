@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
-	"github.com/baetyl/baetyl-go/v2/utils"
+	"github.com/zulu-network/zulu-go-sdk/errors"
+	"github.com/zulu-network/zulu-go-sdk/utils"
 )
 
 const (
