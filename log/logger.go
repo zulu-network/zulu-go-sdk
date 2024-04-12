@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
+	"github.com/zulu-network/zulu-go-sdk/errors"
 )
 
 func init() {

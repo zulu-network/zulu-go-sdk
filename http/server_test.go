@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/valyala/fasthttp"
 
-	"github.com/baetyl/baetyl-go/v2/utils"
+	"github.com/zulu-network/zulu-go-sdk/utils"
 )
 
 func TestServerHttp(t *testing.T) {

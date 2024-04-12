@@ -4,7 +4,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
+	"github.com/zulu-network/zulu-go-sdk/errors"
 )
 
 // Field log field

@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
-
 	"github.com/stretchr/testify/assert"
+
+	"github.com/zulu-network/zulu-go-sdk/errors"
 )
 
 func TestLoggerError(t *testing.T) {

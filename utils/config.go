@@ -4,18 +4,18 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 	"text/template"
 
-	"github.com/baetyl/baetyl-go/v2/errors"
 	"gopkg.in/yaml.v3"
+
+	"github.com/zulu-network/zulu-go-sdk/errors"
 )
 
 // LoadYAML config into out interface, with defaults and validates
 func LoadYAML(path string, out interface{}) error {
-	data, err := ioutil.ReadFile(path)
+	data, err := os.ReadFile(path)
 	if err != nil {
 		return errors.Trace(err)
 	}
