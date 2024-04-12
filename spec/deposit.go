@@ -4,6 +4,12 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	DepositTxStatePending    = "pending"
+	DepositTxStateProcessing = "processing"
+	DepositTxStateDone       = "done"
+)
+
 type BtcDepositTxInfo struct {
 	gorm.Model
 	TransactionID string `gorm:"unique;not null;"`

@@ -4,6 +4,12 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	WithdrawTxStatePending    = "pending"
+	WithdrawTxStateProcessing = "processing"
+	WithdrawTxStateDone       = "done"
+)
+
 type ZuluWithdrawTxInfo struct {
 	gorm.Model
 	TxHash    string `gorm:"unique;not null;"`
