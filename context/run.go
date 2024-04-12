@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime/debug"
 
-	"github.com/baetyl/baetyl-go/v2/log"
+	"github.com/zulu-network/zulu-go-sdk/log"
 )
 
 // Run service

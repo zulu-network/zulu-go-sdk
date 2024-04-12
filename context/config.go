@@ -1,7 +1,7 @@
 package context
 
 import (
-	"github.com/baetyl/baetyl-go/v2/log"
+	"github.com/zulu-network/zulu-go-sdk/log"
 )
 
 const (

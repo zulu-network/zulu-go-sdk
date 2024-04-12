@@ -14,7 +14,8 @@ import (
 	"github.com/panjf2000/ants/v2"
 
 	"github.com/baetyl/baetyl-go/v2/errors"
-	"github.com/baetyl/baetyl-go/v2/log"
+
+	"github.com/zulu-network/zulu-go-sdk/log"
 )
 
 var jsonHeaders = map[string]string{"Content-Type": "application/json"}

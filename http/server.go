@@ -11,7 +11,7 @@ import (
 
 	"github.com/valyala/fasthttp"
 
-	"github.com/baetyl/baetyl-go/v2/log"
+	"github.com/zulu-network/zulu-go-sdk/log"
 )
 
 var errNoCertOrKeyProvided = errors.New("cert or key has not provided")
