@@ -6,7 +6,7 @@ import (
 
 func (db *Database) GetDepositTransaction(txid, fromAddress string) (*spec.ZuluDepositTxInfo, error) {
 	var txInfo spec.ZuluDepositTxInfo
-	if err := db.DB.Where("transaction_id = ? AND l1address = ?", txid, fromAddress).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", txid, fromAddress).Find(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -24,7 +24,7 @@ func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositTxInfo) (
 		return nil, err
 	}
 	var txInfo spec.ZuluDepositTxInfo
-	if err := db.DB.Where("transaction_id = ? AND l1address = ?", tx.TransactionID, tx.L1Address).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).Find(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -32,14 +32,14 @@ func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositTxInfo) (
 
 func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec.ZuluDepositTxInfo, error) {
 	var txInfos []spec.ZuluDepositTxInfo
-	if err := db.DB.Where("l1address = ?", fromAddress).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("l1_address = ?", fromAddress).Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
 }
 
 func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
-	if err := db.DB.Model(&spec.ZuluDepositTxInfo{}).Where("transaction_id = ? AND l1address = ?", tx.TransactionID, tx.L1Address).
+	if err := db.DB.Model(&spec.ZuluDepositTxInfo{}).Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).
 		Update("state", tx.State).Error; err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
 
 func (db *Database) DeleteDepositTransaction(txid, fromAddress string) error {
 	var txInfo spec.ZuluDepositTxInfo
-	if err := db.DB.Where("transaction_id = ? AND l1address = ?", txid, fromAddress).Delete(&txInfo).Error; err != nil {
+	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", txid, fromAddress).Delete(&txInfo).Error; err != nil {
 		return err
 	}
 	return nil
@@ -57,7 +57,7 @@ func (db *Database) DeleteDepositTransaction(txid, fromAddress string) error {
 // withdraw
 func (db *Database) GetZuluWithdrawTransaction(txhash, fromAddress string) (*spec.ZuluWithdrawTxInfo, error) {
 	var txInfo spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("txhash = ? AND l2address = ?", txhash, fromAddress).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("tx_hash = ? AND l2_address = ?", txhash, fromAddress).Find(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -75,7 +75,7 @@ func (db *Database) CreateAndGetZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxI
 		return nil, err
 	}
 	var txInfo spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("txhash = ? AND l2address = ?", tx.TxHash, tx.L2Address).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).Find(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -83,14 +83,14 @@ func (db *Database) CreateAndGetZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxI
 
 func (db *Database) ListZuluWithdrawTransactionByAddress(fromAddress string) (*[]spec.ZuluWithdrawTxInfo, error) {
 	var txInfos []spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("l2address = ?", fromAddress).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("l2_address = ?", fromAddress).Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
 }
 
 func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
-	if err := db.DB.Model(&spec.ZuluWithdrawTxInfo{}).Where("txhash = ? AND l2address = ?", tx.TxHash, tx.L2Address).
+	if err := db.DB.Model(&spec.ZuluWithdrawTxInfo{}).Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).
 		Update("state", tx.State).Error; err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) e
 
 func (db *Database) DeleteZuluWithdrawTransaction(txhash, fromAddress string) error {
 	var txInfo spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("txhash = ? AND l2address = ?", txhash, fromAddress).Delete(&txInfo).Error; err != nil {
+	if err := db.DB.Where("tx_hash = ? AND l2_address = ?", txhash, fromAddress).Delete(&txInfo).Error; err != nil {
 		return err
 	}
 	return nil
