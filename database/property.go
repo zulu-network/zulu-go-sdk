@@ -13,21 +13,36 @@ func (db *Database) GetProperty(name string) (string, error) {
 }
 
 func (db *Database) UpdateProperty(prop *spec.ZuluProperty) error {
-	if err := db.DB.Model(&spec.ZuluProperty{}).Where("name = ?", prop.Name).
-		Update("value", prop.Value).Error; err != nil {
-		return err
-	}
-	return nil
+	return db.DB.Model(&spec.ZuluProperty{}).Where("name = ?", prop.Name).
+		Update("value", prop.Value).Error
 }
 
 func (db *Database) UpdateAndGetProperty(prop *spec.ZuluProperty) (*spec.ZuluProperty, error) {
-	if err := db.DB.Model(&spec.ZuluProperty{}).Where("name = ?", prop.Name).
+	tx := db.DB.Begin()
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
+	if err := tx.Model(&spec.ZuluProperty{}).Where("name = ?", prop.Name).
 		Update("value", prop.Value).Error; err != nil {
+		tx.Rollback()
 		return nil, err
 	}
+
 	var newProp spec.ZuluProperty
-	if err := db.DB.Where("name = ?", prop.Name).Find(&newProp).Error; err != nil {
+	if err := tx.Where("name = ?", prop.Name).Find(&newProp).Error; err != nil {
+		tx.Rollback()
 		return nil, err
 	}
+
+	if err := tx.Commit().Error; err != nil {
+		return nil, err
+	}
+
 	return &newProp, nil
 }

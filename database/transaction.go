@@ -13,10 +13,7 @@ func (db *Database) GetDepositTransaction(txid, fromAddress string) (*spec.ZuluD
 }
 
 func (db *Database) CreateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
-	if err := db.DB.Create(tx).Error; err != nil {
-		return err
-	}
-	return nil
+	return db.DB.Create(tx).Error
 }
 
 func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositTxInfo) (*spec.ZuluDepositTxInfo, error) {
@@ -38,12 +35,16 @@ func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec
 	return &txInfos, nil
 }
 
+//func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
+//	if err := db.DB.Model(&spec.ZuluDepositTxInfo{}).Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).
+//		Update("state", tx.State).Error; err != nil {
+//		return err
+//	}
+//	return nil
+//}
+
 func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
-	if err := db.DB.Model(&spec.ZuluDepositTxInfo{}).Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).
-		Update("state", tx.State).Error; err != nil {
-		return err
-	}
-	return nil
+	return db.DB.Save(tx).Error
 }
 
 func (db *Database) DeleteDepositTransaction(txid, fromAddress string) error {
@@ -64,10 +65,7 @@ func (db *Database) GetZuluWithdrawTransaction(txhash, fromAddress string) (*spe
 }
 
 func (db *Database) CreateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
-	if err := db.DB.Create(tx).Error; err != nil {
-		return err
-	}
-	return nil
+	return db.DB.Create(tx).Error
 }
 
 func (db *Database) CreateAndGetZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) (*spec.ZuluWithdrawTxInfo, error) {
@@ -89,12 +87,16 @@ func (db *Database) ListZuluWithdrawTransactionByAddress(fromAddress string) (*[
 	return &txInfos, nil
 }
 
+//func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
+//	if err := db.DB.Model(&spec.ZuluWithdrawTxInfo{}).Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).
+//		Update("state", tx.State).Error; err != nil {
+//		return err
+//	}
+//	return nil
+//}
+
 func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
-	if err := db.DB.Model(&spec.ZuluWithdrawTxInfo{}).Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).
-		Update("state", tx.State).Error; err != nil {
-		return err
-	}
-	return nil
+	return db.DB.Save(tx).Error
 }
 
 func (db *Database) DeleteZuluWithdrawTransaction(txhash, fromAddress string) error {
