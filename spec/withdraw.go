@@ -5,9 +5,10 @@ import (
 )
 
 const (
-	WithdrawTxStatePending    = "pending"
-	WithdrawTxStateProcessing = "processing"
-	WithdrawTxStateDone       = "done"
+	WithdrawTxStatePending       = "pending"
+	WithdrawTxStateProcessing    = "processing"
+	WithdrawTxStateProcessFailed = "failed"
+	WithdrawTxStateDone          = "done"
 )
 
 type ZuluWithdrawTxInfo struct {
