@@ -10,7 +10,7 @@ func (db *Database) CreateZuluTokenInfo(ti *spec.ZuluTokenInfo) error {
 
 func (db *Database) GetZuluTokenInfo(address string) (*spec.ZuluTokenInfo, error) {
 	var tokenInfo spec.ZuluTokenInfo
-	if err := db.DB.Where("address = ?", address).Find(&tokenInfo).Error; err != nil {
+	if err := db.DB.Where("address = ?", address).First(&tokenInfo).Error; err != nil {
 		return nil, err
 	}
 	return &tokenInfo, nil

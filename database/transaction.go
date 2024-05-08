@@ -6,7 +6,7 @@ import (
 
 func (db *Database) GetDepositTransaction(txid, fromAddress string) (*spec.ZuluDepositTxInfo, error) {
 	var txInfo spec.ZuluDepositTxInfo
-	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", txid, fromAddress).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", txid, fromAddress).First(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -21,7 +21,7 @@ func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositTxInfo) (
 		return nil, err
 	}
 	var txInfo spec.ZuluDepositTxInfo
-	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).First(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil
@@ -73,7 +73,7 @@ func (db *Database) CreateAndGetZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxI
 		return nil, err
 	}
 	var txInfo spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).Find(&txInfo).Error; err != nil {
+	if err := db.DB.Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).First(&txInfo).Error; err != nil {
 		return nil, err
 	}
 	return &txInfo, nil

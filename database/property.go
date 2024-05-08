@@ -6,7 +6,7 @@ import (
 
 func (db *Database) GetProperty(name string) (string, error) {
 	var prop spec.ZuluProperty
-	if err := db.DB.Where("name = ?", name).Find(&prop).Error; err != nil {
+	if err := db.DB.Where("name = ?", name).First(&prop).Error; err != nil {
 		return "", err
 	}
 	return prop.Value, nil
@@ -35,7 +35,7 @@ func (db *Database) UpdateAndGetProperty(prop *spec.ZuluProperty) (*spec.ZuluPro
 	}
 
 	var newProp spec.ZuluProperty
-	if err := tx.Where("name = ?", prop.Name).Find(&newProp).Error; err != nil {
+	if err := tx.Where("name = ?", prop.Name).First(&newProp).Error; err != nil {
 		tx.Rollback()
 		return nil, err
 	}
