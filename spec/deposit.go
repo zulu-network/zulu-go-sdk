@@ -12,9 +12,9 @@ const (
 )
 
 const (
-	TokenTypeBTC   = 0
-	TokenTypeBrc20 = 1
-	TokenTypeRunes = 2
+	DepositTypeBTC   = "btc"
+	DepositTypeBrc20 = "brc20"
+	DepositTypeRunes = "runes"
 )
 
 type ZuluDepositTxInfo struct {

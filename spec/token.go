@@ -4,6 +4,12 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	TokenTypeBTC   = 0
+	TokenTypeBrc20 = 1
+	TokenTypeRunes = 2
+)
+
 type ZuluTokenInfo struct {
 	gorm.Model
 	Address   string `gorm:"unique;not null;"`
