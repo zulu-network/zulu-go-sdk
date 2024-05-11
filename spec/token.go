@@ -18,5 +18,5 @@ type ZuluTokenInfo struct {
 	Symbol    string `gorm:"not null;"`
 	Decimals  uint8  `gorm:"not null;"`
 	Cap       string `gorm:"not null;"`
-	TokenType string `gorm:"not null;"`
+	TokenType int    `gorm:"not null;"`
 }
