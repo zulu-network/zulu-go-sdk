@@ -11,6 +11,12 @@ const (
 	DepositTxStateDone       = "done"
 )
 
+const (
+	TokenTypeBTC   = 0
+	TokenTypeBrc20 = 1
+	TokenTypeRunes = 2
+)
+
 type ZuluDepositTxInfo struct {
 	gorm.Model
 	TransactionID string `gorm:"unique;not null;"`
