@@ -1,8 +1,6 @@
 package spec
 
 import (
-	"math/big"
-
 	"gorm.io/gorm"
 )
 
@@ -24,10 +22,10 @@ type ZuluTokenInfo struct {
 }
 
 type L1TokenInfo struct {
-	Name      string   `json:"name"`
-	Symbol    string   `json:"symbol"`
-	RunesID   string   `json:"runes_id"`
-	Type      int      `json:"type"`
-	Decimal   int      `json:"decimal"`
-	MaxSupply *big.Int `json:"maxSupply"`
+	Name      string `json:"name"`
+	Symbol    string `json:"symbol"`
+	RunesID   string `json:"runes_id"`
+	Type      int    `json:"type"`
+	Decimal   int    `json:"decimal"`
+	MaxSupply string `json:"maxSupply"`
 }
