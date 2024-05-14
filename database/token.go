@@ -23,3 +23,15 @@ func (db *Database) GetZuluTokenInfoByName(name string) (*spec.ZuluTokenInfo, er
 	}
 	return &tokenInfo, nil
 }
+
+func (db *Database) CreateL1TokenInfo(l1ti *spec.L1TokenInfo) error {
+	return db.DB.Create(l1ti).Error
+}
+
+func (db *Database) GetL1TokenInfo(name string) (*spec.L1TokenInfo, error) {
+	var l1TokenInfo spec.L1TokenInfo
+	if err := db.DB.Where("name = ?", name).First(&l1TokenInfo).Error; err != nil {
+		return nil, err
+	}
+	return &l1TokenInfo, nil
+}
