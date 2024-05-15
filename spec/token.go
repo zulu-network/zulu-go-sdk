@@ -22,10 +22,11 @@ type ZuluTokenInfo struct {
 }
 
 type L1TokenInfo struct {
-	Name      string `json:"name"`
-	Symbol    string `json:"symbol"`
-	RunesID   string `json:"runes_id"`
-	Type      int    `json:"type"`
-	Decimal   int    `json:"decimal"`
-	MaxSupply string `json:"maxSupply"`
+	gorm.Model
+	Name      string `gorm:"unique;not null;"`
+	Symbol    string `gorm:"not null;"`
+	RunesID   string `gorm:"not null;"`
+	Type      int    `gorm:"not null;"`
+	Decimal   int    `gorm:"not null;"`
+	MaxSupply string `gorm:"not null;"`
 }
