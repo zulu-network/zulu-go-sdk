@@ -24,6 +24,22 @@ func (db *Database) GetZuluTokenInfoByName(name string) (*spec.ZuluTokenInfo, er
 	return &tokenInfo, nil
 }
 
+func (db *Database) ListZuluTokenInfoByType(tokenType int) (*[]spec.ZuluTokenInfo, error) {
+	var tokenInfos []spec.ZuluTokenInfo
+	if err := db.DB.Where("token_type = ?", tokenType).Find(&tokenInfos).Error; err != nil {
+		return nil, err
+	}
+	return &tokenInfos, nil
+}
+
+func (db *Database) ListZuluTokenInfo() (*[]spec.ZuluTokenInfo, error) {
+	var tokenInfos []spec.ZuluTokenInfo
+	if err := db.DB.Find(&tokenInfos).Error; err != nil {
+		return nil, err
+	}
+	return &tokenInfos, nil
+}
+
 func (db *Database) CreateL1TokenInfo(l1ti *spec.L1TokenInfo) error {
 	return db.DB.Create(l1ti).Error
 }
