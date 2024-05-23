@@ -24,6 +24,7 @@ type ZuluDepositTxInfo struct {
 	L2Address     string `gorm:"not null;"`
 	Tick          string `gorm:"not null;"`
 	Type          string `gorm:"not null;"`
+	Decimals      int    `gorm:"not null;"`
 	Amount        string `gorm:"not null;"`
 	L2TxHash      string `gorm:"not null;"`
 	State         string `gorm:"not null;default:'pending'"`
