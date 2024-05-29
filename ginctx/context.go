@@ -270,6 +270,32 @@ func Wrapper(handler HandlerFunc) func(c *gin.Context) {
 	}
 }
 
+func WrapperString(handler HandlerFunc) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		cc := NewHttpContext(c)
+		cc.Set("startTime", time.Now())
+		defer func() {
+			if r := recover(); r != nil {
+				err, ok := r.(error)
+				if !ok {
+					err = Error(ErrUnknown, Field("error", r))
+				}
+				cc.Logger.Info("handle a panic", log.Code(err), log.Error(err), log.Any("panic", string(debug.Stack())))
+				PopulateFailedResponse(cc, err, false)
+			}
+		}()
+		res, err := handler(cc)
+		if err != nil {
+			cc.Logger.Error("failed to handler request", log.Code(err), log.Error(err))
+			PopulateFailedResponse(cc, err, false)
+			return
+		}
+		cc.Logger.Debug("process success", log.Any("response", _toJsonString(res)))
+		// unlike JSON, does not replace special html characters with their unicode entities. eg: JSON(&)->'\u0026' PureJSON(&)->'&'
+		cc.String(http.StatusOK, "ok")
+	}
+}
+
 // WrapperWithLock wrap handler with lock
 func WrapperWithLock(lockFunc LockFunc, unlockFunc UnlockFunc) func(c *gin.Context) {
 	return func(c *gin.Context) {
