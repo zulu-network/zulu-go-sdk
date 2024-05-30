@@ -33,3 +33,10 @@ type CoboWithdrawInfo struct {
 	TxType      int    `json:"tx_type" gorm:"not null"`
 	BlockHeight int    `json:"block_height" gorm:"not null"`
 }
+
+type CoinAmount struct {
+	Coin      string `json:"coin"`
+	Amount    string `json:"amount"`
+	AbsAmount string `json:"abs_amount"`
+	Decimals  int    `json:"decimals"`
+}

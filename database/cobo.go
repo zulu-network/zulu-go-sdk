@@ -19,6 +19,17 @@ func (db *Database) CreateAndGetCoboDepositTransaction(tx *spec.CoboDepositInfo)
 	return &txInfo, nil
 }
 
+func (db *Database) GetAmountsByFromAddress(fromAddress string) ([]spec.CoinAmount, error) {
+	var coinAmounts []spec.CoinAmount
+	err := db.DB.Model(&spec.CoboDepositInfo{}).
+		Select("coin, amount, abs_amount, decimals, COALESCE(SUM(amount), '0') as amount").
+		Where("from_address = ?", fromAddress).
+		Group("coin").
+		Scan(&coinAmounts).Error
+
+	return coinAmounts, err
+}
+
 func (db *Database) CreateCoboWithdrawTransaction(tx *spec.CoboWithdrawInfo) error {
 	return db.DB.Create(tx).Error
 }
