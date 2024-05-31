@@ -9,6 +9,8 @@ type CoboDepositInfo struct {
 	CoboID      string `json:"cobo_id" gorm:"unique;not null"`
 	Status      int    `json:"status" gorm:"not null"`
 	Coin        string `json:"coin" gorm:"not null"`
+	ChainCode   string `json:"chain_code" gorm:"not null"`
+	DisplayCode string `json:"display_code" gorm:"not null"`
 	Decimals    int    `json:"decimals" gorm:"not null"`
 	Amount      string `json:"amount" gorm:"not null"`
 	AbsAmount   string `json:"abs_amount" gorm:"not null"`
@@ -24,6 +26,8 @@ type CoboWithdrawInfo struct {
 	CoboID      string `json:"cobo_id" gorm:"unique;not null"`
 	Status      int    `json:"status" gorm:"not null"`
 	Coin        string `json:"coin" gorm:"not null"`
+	ChainCode   string `json:"chain_code" gorm:"not null"`
+	DisplayCode string `json:"display_code" gorm:"not null"`
 	Decimals    int    `json:"decimals" gorm:"not null"`
 	Amount      string `json:"amount" gorm:"not null"`
 	AbsAmount   string `json:"abs_amount" gorm:"not null"`
@@ -35,8 +39,10 @@ type CoboWithdrawInfo struct {
 }
 
 type CoinAmount struct {
-	Coin      string `json:"coin"`
-	Amount    string `json:"amount"`
-	AbsAmount string `json:"abs_amount"`
-	Decimals  int    `json:"decimals"`
+	Coin        string `json:"coin"`
+	ChainCode   string `json:"chain_code"`
+	DisplayCode string `json:"display_code"`
+	Amount      string `json:"amount"`
+	AbsAmount   string `json:"abs_amount"`
+	Decimals    int    `json:"decimals"`
 }
