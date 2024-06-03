@@ -29,7 +29,7 @@ func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositTxInfo) (
 
 func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec.ZuluDepositTxInfo, error) {
 	var txInfos []spec.ZuluDepositTxInfo
-	if err := db.DB.Where("l1_address = ?", fromAddress).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("l1_address = ?", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
@@ -81,7 +81,7 @@ func (db *Database) CreateAndGetZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxI
 
 func (db *Database) ListZuluWithdrawTransactionByAddress(fromAddress string) (*[]spec.ZuluWithdrawTxInfo, error) {
 	var txInfos []spec.ZuluWithdrawTxInfo
-	if err := db.DB.Where("l2_address = ?", fromAddress).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("l2_address = ?", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
