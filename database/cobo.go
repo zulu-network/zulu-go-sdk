@@ -19,6 +19,14 @@ func (db *Database) CreateAndGetCoboDepositTransaction(tx *spec.CoboDepositInfo)
 	return &txInfo, nil
 }
 
+func (db *Database) ListCoboDepositTransactionByAddress(fromAddress string) (*[]spec.CoboDepositInfo, error) {
+	var txInfos []spec.CoboDepositInfo
+	if err := db.DB.Where("from_address = ?", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 func (db *Database) GetAmountsByFromAddress(fromAddress string) ([]spec.CoinAmount, error) {
 	var coinAmounts []spec.CoinAmount
 	err := db.DB.Model(&spec.CoboDepositInfo{}).
@@ -43,4 +51,12 @@ func (db *Database) CreateAndGetCoboWithdrawTransaction(tx *spec.CoboWithdrawInf
 		return nil, err
 	}
 	return &txInfo, nil
+}
+
+func (db *Database) ListCoboWithdrawTransactionByAddress(toAddress string) (*[]spec.CoboWithdrawInfo, error) {
+	var txInfos []spec.CoboWithdrawInfo
+	if err := db.DB.Where("to_address = ?", toAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
 }
