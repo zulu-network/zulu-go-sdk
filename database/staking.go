@@ -1,6 +1,10 @@
 package database
 
 import (
+	"errors"
+
+	"gorm.io/gorm"
+
 	"github.com/zulu-network/zulu-go-sdk/spec"
 )
 
@@ -9,7 +13,16 @@ func (db *Database) CreateCoinMarketInfo(cmi *spec.CoinMarketInfo) error {
 }
 
 func (db *Database) CreateOrUpdateCoinMarketInfo(cmi *spec.CoinMarketInfo) error {
-	return db.DB.Save(cmi).Error
+	return db.DB.Transaction(func(tx *gorm.DB) error {
+		var existing spec.CoinMarketInfo
+		if err := tx.Where(&spec.CoinMarketInfo{Symbol: cmi.Symbol}).First(&existing).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return tx.Create(cmi).Error
+			}
+			return err
+		}
+		return tx.Model(&existing).Updates(cmi).Error
+	})
 }
 
 func (db *Database) GetCoinMarketInfo(name string) (*spec.CoinMarketInfo, error) {
@@ -33,7 +46,16 @@ func (db *Database) CreateCoinBalanceInfo(cbi *spec.CoinBalanceInfo) error {
 }
 
 func (db *Database) CreateOrUpdateCoinBalanceInfo(cbi *spec.CoinBalanceInfo) error {
-	return db.DB.Save(cbi).Error
+	return db.DB.Transaction(func(tx *gorm.DB) error {
+		var existing spec.CoinBalanceInfo
+		if err := tx.Where(&spec.CoinBalanceInfo{Coin: cbi.Coin}).First(&existing).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return tx.Create(cbi).Error
+			}
+			return err
+		}
+		return tx.Model(&existing).Updates(cbi).Error
+	})
 }
 
 func (db *Database) GetCoinBalanceInfo(address, coin string) (*spec.CoinBalanceInfo, error) {
