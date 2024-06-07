@@ -8,6 +8,10 @@ func (db *Database) CreateCoinMarketInfo(cmi *spec.CoinMarketInfo) error {
 	return db.DB.Create(cmi).Error
 }
 
+func (db *Database) CreateOrUpdateCoinMarketInfo(cmi *spec.CoinMarketInfo) error {
+	return db.DB.Save(cmi).Error
+}
+
 func (db *Database) GetCoinMarketInfo(name string) (*spec.CoinMarketInfo, error) {
 	var coin spec.CoinMarketInfo
 	if err := db.DB.Where("name = ?", name).First(&coin).Error; err != nil {
@@ -18,6 +22,10 @@ func (db *Database) GetCoinMarketInfo(name string) (*spec.CoinMarketInfo, error)
 
 func (db *Database) CreateCoinBalanceInfo(cbi *spec.CoinBalanceInfo) error {
 	return db.DB.Create(cbi).Error
+}
+
+func (db *Database) CreateOrUpdateCoinBalanceInfo(cbi *spec.CoinBalanceInfo) error {
+	return db.DB.Save(cbi).Error
 }
 
 func (db *Database) GetCoinBalanceInfo(address, coin string) (*spec.CoinBalanceInfo, error) {
