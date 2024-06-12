@@ -78,6 +78,17 @@ func (db *Database) CreateStakeDepositRecord(sdr *spec.StakeDepositRecord) error
 	return db.DB.Create(sdr).Error
 }
 
+func (db *Database) CreateAndGetStakeDepositRecord(tx *spec.StakeDepositRecord) (*spec.StakeDepositRecord, error) {
+	if err := db.DB.Create(tx).Error; err != nil {
+		return nil, err
+	}
+	var txInfo spec.StakeDepositRecord
+	if err := db.DB.Where("tx_hash = ?", tx.TxHash).First(&txInfo).Error; err != nil {
+		return nil, err
+	}
+	return &txInfo, nil
+}
+
 func (db *Database) GetStakeDepositRecord(txhash string) (*spec.StakeDepositRecord, error) {
 	var sdr spec.StakeDepositRecord
 	if err := db.DB.Where("tx_hash = ?", txhash).First(&sdr).Error; err != nil {
