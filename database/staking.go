@@ -73,3 +73,15 @@ func (db *Database) GetCoinBalanceInfoByDisplayCode(address, displayCode string)
 	}
 	return &cbi, nil
 }
+
+func (db *Database) CreateStakeDepositRecord(sdr *spec.StakeDepositRecord) error {
+	return db.DB.Create(sdr).Error
+}
+
+func (db *Database) GetStakeDepositRecord(txhash string) (*spec.StakeDepositRecord, error) {
+	var sdr spec.StakeDepositRecord
+	if err := db.DB.Where("tx_hash = ?", txhash).First(&sdr).Error; err != nil {
+		return nil, err
+	}
+	return &sdr, nil
+}

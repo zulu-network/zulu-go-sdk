@@ -28,3 +28,16 @@ type CoinBalanceInfo struct {
 	Balance     string `gorm:"not null;"`
 	Decimal     int    `gorm:"not null;"`
 }
+
+type StakeDepositRecord struct {
+	gorm.Model
+	Coin        string  `json:"coin" gorm:"not null"`
+	ChainCode   string  `json:"chain_code" gorm:"not null"`
+	DisplayCode string  `json:"display_code" gorm:"not null"`
+	Decimals    int     `json:"decimals" gorm:"not null"`
+	Amount      uint64  `json:"amount" gorm:"not null"`
+	AbsAmount   float64 `json:"abs_amount" gorm:"not null"`
+	FromAddress string  `json:"from_address" gorm:"not null"`
+	ToAddress   string  `json:"to_address" gorm:"not null"`
+	TxHash      string  `json:"tx_hash" gorm:"unique,not null"`
+}
