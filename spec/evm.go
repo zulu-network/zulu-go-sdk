@@ -37,4 +37,5 @@ type EvmWithdrawInfo struct {
 	TxHash      string  `json:"tx_hash" gorm:"not null"`
 	TxType      int     `json:"tx_type" gorm:"not null"`
 	BlockHeight int     `json:"block_height" gorm:"not null"`
+	State       string  `json:"state" gorm:"not null;default:'pending'"`
 }
