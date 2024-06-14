@@ -27,6 +27,14 @@ func (db *Database) ListEvmDepositTransactionByAddress(fromAddress string) (*[]s
 	return &txInfos, nil
 }
 
+func (db *Database) ListUnhandledEvmDepositTransactions(number int) (*[]spec.EvmDepositInfo, error) {
+	var txInfos []spec.EvmDepositInfo
+	if err := db.DB.Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 func (db *Database) GetEvmAmountsByFromAddress(fromAddress string) ([]spec.CoinAmount, error) {
 	var coinAmounts []spec.CoinAmount
 	err := db.DB.Model(&spec.EvmDepositInfo{}).

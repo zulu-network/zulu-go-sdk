@@ -35,13 +35,13 @@ func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec
 	return &txInfos, nil
 }
 
-//func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
-//	if err := db.DB.Model(&spec.ZuluDepositTxInfo{}).Where("transaction_id = ? AND l1_address = ?", tx.TransactionID, tx.L1Address).
-//		Update("state", tx.State).Error; err != nil {
-//		return err
-//	}
-//	return nil
-//}
+func (db *Database) ListUnhandledDepositTransactions(number int) (*[]spec.ZuluDepositTxInfo, error) {
+	var depositTxs []spec.ZuluDepositTxInfo
+	if err := db.DB.Where("state = ?", spec.DepositTxStateProcessing).Order("created_at asc").Limit(number).Find(&depositTxs).Error; err != nil {
+		return nil, err
+	}
+	return &depositTxs, nil
+}
 
 func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositTxInfo) error {
 	return db.DB.Save(tx).Error
@@ -87,13 +87,13 @@ func (db *Database) ListZuluWithdrawTransactionByAddress(fromAddress string) (*[
 	return &txInfos, nil
 }
 
-//func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
-//	if err := db.DB.Model(&spec.ZuluWithdrawTxInfo{}).Where("tx_hash = ? AND l2_address = ?", tx.TxHash, tx.L2Address).
-//		Update("state", tx.State).Error; err != nil {
-//		return err
-//	}
-//	return nil
-//}
+func (db *Database) ListUnhandledWithdrawTransactions(number int) (*[]spec.ZuluWithdrawTxInfo, error) {
+	var txInfos []spec.ZuluWithdrawTxInfo
+	if err := db.DB.Where("state = ?", spec.WithdrawTxStatePending).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
 
 func (db *Database) UpdateZuluWithdrawTransaction(tx *spec.ZuluWithdrawTxInfo) error {
 	return db.DB.Save(tx).Error
