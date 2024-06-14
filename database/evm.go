@@ -46,6 +46,10 @@ func (db *Database) GetEvmAmountsByFromAddress(fromAddress string) ([]spec.CoinA
 	return coinAmounts, err
 }
 
+func (db *Database) UpdateEvmDepositTransaction(tx *spec.EvmDepositInfo) error {
+	return db.DB.Save(tx).Error
+}
+
 func (db *Database) CreateEvmWithdrawTransaction(tx *spec.EvmWithdrawInfo) error {
 	return db.DB.Create(tx).Error
 }
@@ -67,4 +71,8 @@ func (db *Database) ListEvmWithdrawTransactionByAddress(toAddress string) (*[]sp
 		return nil, err
 	}
 	return &txInfos, nil
+}
+
+func (db *Database) UpdateEvmWithdrawTransaction(tx *spec.EvmWithdrawInfo) error {
+	return db.DB.Save(tx).Error
 }
