@@ -20,6 +20,7 @@ type EvmDepositInfo struct {
 	TxType      int     `json:"tx_type" gorm:"not null"`
 	BlockHeight int     `json:"block_height" gorm:"not null"`
 	State       string  `json:"state" gorm:"not null;default:'pending'"`
+	L2TxHash    string  `gorm:"not null;"`
 }
 
 type EvmWithdrawInfo struct {
@@ -38,4 +39,5 @@ type EvmWithdrawInfo struct {
 	TxType      int     `json:"tx_type" gorm:"not null"`
 	BlockHeight int     `json:"block_height" gorm:"not null"`
 	State       string  `json:"state" gorm:"not null;default:'pending'"`
+	L1TxHash    string  `gorm:"not null;"`
 }
