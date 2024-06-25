@@ -33,20 +33,18 @@ type ZuluDepositTxInfo struct {
 
 type ZuluDepositInfo struct {
 	gorm.Model
-	CoboID string `gorm:"unique"`
-	//Status      int    `gorm:"not null"`
+	CoboID      string `gorm:"unique"`
 	Coin        string
 	ChainCode   string
 	DisplayCode string
 	FromAddress string
 	ToAddress   string
 	FromTxHash  string `gorm:"unique"`
-	ToTxHash    string `gorm:"unique"`
+	ToTxHash    string
 	Amount      string
 	AbsAmount   string
 	Decimals    int
 	Type        string
-	//TxType      int    `gorm:"not null"`
 	BlockHeight int
 	State       string `gorm:"not null;default:'pending'"`
 }

@@ -32,7 +32,7 @@ type ZuluWithdrawInfo struct {
 	ToAddress   string
 	DestChain   string
 	FromTxHash  string `gorm:"unique"`
-	ToTxHash    string `gorm:"unique"`
+	ToTxHash    string
 	Amount      string
 	AbsAmount   string
 	Type        int
