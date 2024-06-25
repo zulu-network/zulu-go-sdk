@@ -8,6 +8,10 @@ const (
 	TokenTypeBTC   = 0
 	TokenTypeBrc20 = 1
 	TokenTypeRunes = 2
+
+	TokenTypeETH  = 1000
+	TokenTypeUSDT = 1001
+	TokenTypeUSDC = 1002
 )
 
 type ZuluTokenInfo struct {

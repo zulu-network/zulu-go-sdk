@@ -15,6 +15,7 @@ const (
 	DepositTypeBTC   = "btc"
 	DepositTypeBrc20 = "brc20"
 	DepositTypeRunes = "runes"
+	DepositTypeEvm   = "evm"
 )
 
 type ZuluDepositTxInfo struct {
@@ -28,4 +29,24 @@ type ZuluDepositTxInfo struct {
 	Amount        string `gorm:"not null;"`
 	L2TxHash      string `gorm:"not null;"`
 	State         string `gorm:"not null;default:'pending'"`
+}
+
+type ZuluDepositInfo struct {
+	gorm.Model
+	CoboID string `gorm:"unique"`
+	//Status      int    `gorm:"not null"`
+	Coin        string
+	ChainCode   string
+	DisplayCode string
+	FromAddress string
+	ToAddress   string
+	FromTxHash  string `gorm:"unique"`
+	ToTxHash    string `gorm:"unique"`
+	Amount      string
+	AbsAmount   string
+	Decimals    int
+	Type        string
+	//TxType      int    `gorm:"not null"`
+	BlockHeight int
+	State       string `gorm:"not null;default:'pending'"`
 }

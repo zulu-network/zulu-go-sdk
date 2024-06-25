@@ -23,3 +23,20 @@ type ZuluWithdrawTxInfo struct {
 	L1TxHash  string `gorm:"not null;"`
 	State     string `gorm:"not null;default:'pending'"`
 }
+
+type ZuluWithdrawInfo struct {
+	gorm.Model
+	CoboID      string `gorm:"unique"`
+	Coin        string
+	FromAddress string
+	ToAddress   string
+	DestChain   string
+	FromTxHash  string `gorm:"unique"`
+	ToTxHash    string `gorm:"unique"`
+	Amount      string
+	AbsAmount   string
+	Type        int
+	Decimals    int
+	BlockHeight int
+	State       string `gorm:"not null;default:'pending'"`
+}
