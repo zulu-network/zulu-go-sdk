@@ -68,6 +68,14 @@ func (db *Database) CreateWithdrawTransaction(tx *spec.ZuluWithdrawInfo) error {
 	return db.DB.Create(tx).Error
 }
 
+func (db *Database) GetWithdrawTransaction(coboID string) (*spec.ZuluWithdrawInfo, error) {
+	var txInfo spec.ZuluWithdrawInfo
+	if err := db.DB.Where("cobo_id = ?", coboID).Find(&txInfo).Error; err != nil {
+		return nil, err
+	}
+	return &txInfo, nil
+}
+
 func (db *Database) CreateAndGetWithdrawTransaction(tx *spec.ZuluWithdrawInfo) (*spec.ZuluWithdrawInfo, error) {
 	if err := db.DB.Create(tx).Error; err != nil {
 		return nil, err
