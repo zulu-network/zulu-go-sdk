@@ -30,7 +30,7 @@ func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec
 
 func (db *Database) ListUnhandledDepositTransactions(number int) (*[]spec.ZuluDepositInfo, error) {
 	var txInfos []spec.ZuluDepositInfo
-	if err := db.DB.Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("state = ?", spec.DepositTxStatePending).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
@@ -89,7 +89,7 @@ func (db *Database) ListWithdrawTransactionByAddress(toAddress string) (*[]spec.
 
 func (db *Database) ListUnhandledWithdrawTransactions(number int) (*[]spec.ZuluWithdrawInfo, error) {
 	var txInfos []spec.ZuluWithdrawInfo
-	if err := db.DB.Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("state = ?", spec.WithdrawTxStatePending).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
