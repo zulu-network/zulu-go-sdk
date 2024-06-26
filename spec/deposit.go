@@ -18,17 +18,15 @@ const (
 	DepositTypeEvm   = "evm"
 )
 
-type ZuluDepositTxInfo struct {
+type ZuluDepositRecord struct {
 	gorm.Model
-	TransactionID string `gorm:"unique;not null;"`
-	L1Address     string `gorm:"not null;"`
-	L2Address     string `gorm:"not null;"`
-	Tick          string `gorm:"not null;"`
-	Type          string `gorm:"not null;"`
-	Decimals      int    `gorm:"not null;"`
-	Amount        string `gorm:"not null;"`
-	L2TxHash      string `gorm:"not null;"`
-	State         string `gorm:"not null;default:'pending'"`
+	FromTxHash  string `gorm:"unique;not null;"`
+	Coin        string `gorm:"not null;"`
+	FromAddress string `gorm:"not null;"`
+	ToAddress   string `gorm:"not null;"`
+	Amount      string `gorm:"not null;"`
+	Decimals    int    `gorm:"not null;"`
+	Type        string `gorm:"not null;"`
 }
 
 type ZuluDepositInfo struct {
@@ -47,4 +45,18 @@ type ZuluDepositInfo struct {
 	Type        string
 	BlockHeight int
 	State       string `gorm:"not null;default:'pending'"`
+}
+
+// Deprecated
+type ZuluDepositTxInfo struct {
+	gorm.Model
+	TransactionID string `gorm:"unique;not null;"`
+	L1Address     string `gorm:"not null;"`
+	L2Address     string `gorm:"not null;"`
+	Tick          string `gorm:"not null;"`
+	Type          string `gorm:"not null;"`
+	Decimals      int    `gorm:"not null;"`
+	Amount        string `gorm:"not null;"`
+	L2TxHash      string `gorm:"not null;"`
+	State         string `gorm:"not null;default:'pending'"`
 }

@@ -4,6 +4,7 @@ import (
 	"github.com/zulu-network/zulu-go-sdk/spec"
 )
 
+// Deposit
 func (db *Database) CreateDepositTransaction(tx *spec.ZuluDepositInfo) error {
 	return db.DB.Create(tx).Error
 }
@@ -35,21 +36,34 @@ func (db *Database) ListUnhandledDepositTransactions(number int) (*[]spec.ZuluDe
 	return &txInfos, nil
 }
 
-//func (db *Database) GetAmountsByFromAddress(fromAddress string) ([]spec.CoinAmount, error) {
-//	var coinAmounts []spec.CoinAmount
-//	err := db.DB.Model(&spec.ZuluDepositInfo{}).
-//		Select("coin, chain_code, display_code, decimals, COALESCE(SUM(amount), 0) as amount, COALESCE(SUM(abs_amount), 0) as abs_amount").
-//		Where("from_address = ?", fromAddress).
-//		Group("coin, chain_code, display_code, decimals, chain_code"). // 添加 chain_code 到 GROUP BY 子句中
-//		Scan(&coinAmounts).Error
-//
-//	return coinAmounts, err
-//}
-
 func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositInfo) error {
 	return db.DB.Save(tx).Error
 }
 
+func (db *Database) CreateDepositRecord(tx *spec.ZuluDepositRecord) error {
+	return db.DB.Create(tx).Error
+}
+
+func (db *Database) CreateAndGetDepositRecord(tx *spec.ZuluDepositRecord) (*spec.ZuluDepositRecord, error) {
+	if err := db.DB.Create(tx).Error; err != nil {
+		return nil, err
+	}
+	var rcd spec.ZuluDepositRecord
+	if err := db.DB.Where("from_tx_hash = ?", tx.FromTxHash).First(&rcd).Error; err != nil {
+		return nil, err
+	}
+	return &rcd, nil
+}
+
+func (db *Database) GetDepositRecord(txHash string) (*spec.ZuluDepositRecord, error) {
+	var rcd spec.ZuluDepositRecord
+	if err := db.DB.Where("from_tx_hash =  ?", txHash).First(&rcd).Error; err != nil {
+		return nil, err
+	}
+	return &rcd, nil
+}
+
+// Withdraw
 func (db *Database) CreateWithdrawTransaction(tx *spec.ZuluWithdrawInfo) error {
 	return db.DB.Create(tx).Error
 }
