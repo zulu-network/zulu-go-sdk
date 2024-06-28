@@ -1,25 +1,35 @@
 package database
 
 import (
+	"log"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 
-	"github.com/zulu-network/zulu-go-sdk/log"
+	zlog "github.com/zulu-network/zulu-go-sdk/log"
 )
 
 type Database struct {
 	DB  *gorm.DB
-	log *log.Logger
+	log *zlog.Logger
 }
 
 func NewDB(url string) (*Database, error) {
-	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
+	newLogger := logger.New(
+		log.New(log.Writer(), "\r\n", log.LstdFlags), // io writer
+		logger.Config{
+			IgnoreRecordNotFoundError: true,
+		},
+	)
+	db, err := gorm.Open(postgres.Open(url), &gorm.Config{
+		Logger: newLogger,
+	})
 	if err != nil {
 		return nil, err
 	}
 	return &Database{
 		DB:  db,
-		log: log.L().With(log.Any("service", "db")),
+		log: zlog.L().With(zlog.Any("service", "db")),
 	}, nil
 }
