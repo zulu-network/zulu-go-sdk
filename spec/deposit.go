@@ -39,8 +39,8 @@ type ZuluDepositInfo struct {
 	ToAddress   string
 	FromTxHash  string `gorm:"unique"`
 	ToTxHash    string
-	Amount      string
-	AbsAmount   string
+	Amount      string `gorm:"type:numeric"`
+	AbsAmount   string `gorm:"type:numeric"`
 	Decimals    int
 	Type        string
 	BlockHeight int
