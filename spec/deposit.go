@@ -41,6 +41,7 @@ type ZuluDepositInfo struct {
 	ToTxHash    string
 	Amount      string `gorm:"type:numeric"`
 	AbsAmount   string `gorm:"type:numeric"`
+	BridgeFee   string `gorm:"type:numeric"`
 	Decimals    int
 	Type        string
 	BlockHeight int
