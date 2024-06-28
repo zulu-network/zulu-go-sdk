@@ -19,8 +19,9 @@ func (db *Database) CreateOrUpdateCoinMarketInfo(cmi *spec.CoinMarketInfo) error
 		if err := tx.Where(&spec.CoinMarketInfo{Symbol: cmi.Symbol}).First(&existing).Error; err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				return tx.Create(cmi).Error
+			} else {
+				return err
 			}
-			return err
 		}
 		return tx.Model(&existing).Updates(cmi).Error
 	})
@@ -53,8 +54,9 @@ func (db *Database) CreateOrUpdateCoinBalanceInfo(cbi *spec.CoinBalanceInfo) err
 		if err := tx.Where(&spec.CoinBalanceInfo{Coin: cbi.Coin}).First(&existing).Error; err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				return tx.Create(cbi).Error
+			} else {
+				return err
 			}
-			return err
 		}
 		return tx.Model(&existing).Updates(cbi).Error
 	})
