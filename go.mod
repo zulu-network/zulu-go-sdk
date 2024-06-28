@@ -18,9 +18,13 @@ require (
 
 require (
 	github.com/baetyl/baetyl-go/v2 v2.2.3
+	github.com/btcsuite/btcd v0.24.2
+	github.com/btcsuite/btcd/btcec/v2 v2.3.3
+	github.com/btcsuite/btcd/chaincfg/chainhash v1.1.0
 	github.com/docker/go-connections v0.4.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.19.0
+	github.com/libsv/go-bk v0.1.6
 	github.com/pkg/errors v0.9.1
 	github.com/satori/go.uuid v1.2.0
 	gorm.io/driver/postgres v1.5.7
@@ -31,6 +35,7 @@ require (
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
