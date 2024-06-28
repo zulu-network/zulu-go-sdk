@@ -40,6 +40,18 @@ func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositInfo) error {
 	return db.DB.Save(tx).Error
 }
 
+func (db *Database) GetAmountsByFromAddress(fromAddress string) ([]spec.CoinAmount, error) {
+	var coinAmounts []spec.CoinAmount
+	err := db.DB.Model(&spec.ZuluDepositInfo{}).
+		Select("coin, chain_code, display_code, decimals, COALESCE(SUM(amount), 0) as amount, COALESCE(SUM(abs_amount), 0) as abs_amount").
+		Where("from_address = ?", fromAddress).
+		Group("coin, chain_code, display_code, decimals, chain_code").
+		Scan(&coinAmounts).Error
+
+	return coinAmounts, err
+}
+
+// Deposit record
 func (db *Database) CreateDepositRecord(tx *spec.ZuluDepositRecord) error {
 	return db.DB.Create(tx).Error
 }
