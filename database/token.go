@@ -51,3 +51,11 @@ func (db *Database) GetL1TokenInfo(name string) (*spec.L1TokenInfo, error) {
 	}
 	return &l1TokenInfo, nil
 }
+
+func (db *Database) ListL1TokenInfo() (*[]spec.L1TokenInfo, error) {
+	var tokenInfos []spec.L1TokenInfo
+	if err := db.DB.Find(&tokenInfos).Error; err != nil {
+		return nil, err
+	}
+	return &tokenInfos, nil
+}
