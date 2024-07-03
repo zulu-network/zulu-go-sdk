@@ -13,7 +13,7 @@ const (
 
 type ZuluWithdrawInfo struct {
 	gorm.Model
-	CoboID      string `gorm:"unique"`
+	CoboID      *string `gorm:"unique"`
 	Coin        string
 	FromAddress string
 	ToAddress   string
