@@ -25,6 +25,7 @@ type ZuluTokenInfo struct {
 	FromTokenName      string `gorm:"unique;not null;"`
 	FromChainCode      string `gorm:"not null"`
 	FromChainID        string `gorm:"not null;index:idx_tokenaddress_chainid,unique"`
+	FromTokenDecimals  uint8  `gorm:"not null"`
 	FromTokenAddress   string `gorm:"not null"`
 	DestTokenName      string `gorm:"not null;"`
 	DestTokenSymbol    string `gorm:"not null;"`
