@@ -28,6 +28,14 @@ func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec
 	return &txInfos, nil
 }
 
+func (db *Database) ListDepositTransactionByAddresses(fromAddress []string) (*[]spec.ZuluDepositInfo, error) {
+	var txInfos []spec.ZuluDepositInfo
+	if err := db.DB.Where("from_address IN (?)", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 func (db *Database) ListUnhandledDepositTransactions(number int) (*[]spec.ZuluDepositInfo, error) {
 	var txInfos []spec.ZuluDepositInfo
 	if err := db.DB.Where("state = ?", spec.DepositTxStatePending).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
@@ -101,7 +109,7 @@ func (db *Database) CreateAndGetWithdrawTransaction(tx *spec.ZuluWithdrawInfo) (
 
 func (db *Database) ListWithdrawTransactionByAddress(toAddress string) (*[]spec.ZuluWithdrawInfo, error) {
 	var txInfos []spec.ZuluWithdrawInfo
-	if err := db.DB.Where("to_address = ?", toAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
+	if err := db.DB.Where("from_address = ?", toAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
 		return nil, err
 	}
 	return &txInfos, nil
