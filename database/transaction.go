@@ -44,6 +44,14 @@ func (db *Database) ListUnhandledDepositTransactions(number int) (*[]spec.ZuluDe
 	return &txInfos, nil
 }
 
+func (db *Database) ListProcessingDepositTransactions(number int) (*[]spec.ZuluDepositInfo, error) {
+	var txInfos []spec.ZuluDepositInfo
+	if err := db.DB.Where("state = ?", spec.DepositTxStateProcessing).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 func (db *Database) UpdateDepositTransaction(tx *spec.ZuluDepositInfo) error {
 	return db.DB.Save(tx).Error
 }
