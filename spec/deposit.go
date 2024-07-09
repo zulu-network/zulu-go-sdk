@@ -4,6 +4,14 @@ import (
 	"gorm.io/gorm"
 )
 
+// Define a custom datatype for citext
+type CITEXT string
+
+// GormDataType defines GORM's data type for the CITEXT type
+func (CITEXT) GormDataType() string {
+	return "citext"
+}
+
 const (
 	DepositTxStatePending    = "pending"
 	DepositTxStateProcessing = "processing"
@@ -22,8 +30,8 @@ type ZuluDepositRecord struct {
 	gorm.Model
 	FromTxHash  string `gorm:"unique;not null;"`
 	Coin        string `gorm:"not null;"`
-	FromAddress string `gorm:"not null;"`
-	ToAddress   string `gorm:"not null;"`
+	FromAddress CITEXT `gorm:"not null;type:citext"`
+	ToAddress   CITEXT `gorm:"not null;type:citext"`
 	Amount      string `gorm:"not null;"`
 	Decimals    int    `gorm:"not null;"`
 	Type        string `gorm:"not null;"`
@@ -35,8 +43,8 @@ type ZuluDepositInfo struct {
 	Coin        string
 	ChainCode   string
 	DisplayCode string
-	FromAddress string
-	ToAddress   string
+	FromAddress CITEXT `gorm:"type:citext"`
+	ToAddress   CITEXT `gorm:"type:citext"`
 	FromTxHash  string `gorm:"unique"`
 	ToTxHash    string
 	Amount      string `gorm:"type:numeric"`

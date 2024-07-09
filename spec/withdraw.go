@@ -15,8 +15,8 @@ type ZuluWithdrawInfo struct {
 	gorm.Model
 	CoboID      *string `gorm:"unique"`
 	Coin        string
-	FromAddress string
-	ToAddress   string
+	FromAddress CITEXT `gorm:"type:citext"`
+	ToAddress   CITEXT `gorm:"type:citext"`
 	DestChain   string
 	FromTxHash  string `gorm:"unique"`
 	ToTxHash    string
