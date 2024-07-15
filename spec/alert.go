@@ -27,7 +27,7 @@ type Alert struct {
 	Level     AlertLevel             `json:"level"`
 	Message   string                 `json:"message"`
 	Timestamp time.Time              `json:"timestamp"`
-	Component string                 `json:"component"`
+	Component AlertComponent         `json:"component"`
 	HostName  string                 `json:"host_name"`
 	Details   map[string]interface{} `json:"details,omitempty"`
 }
