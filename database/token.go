@@ -13,7 +13,6 @@ func (db *Database) GetZuluTokenInfo(name, symbol string, decimals uint8, maxSup
 	if err := db.DB.Where("dest_token_name = ? AND dest_token_address = ? AND dest_token_decimals = ? AND dest_token_max_supply = ? AND dest_token_type = ?", name, symbol, decimals, maxSupply, tokenType).First(&tokenInfo).Error; err != nil {
 		return nil, err
 	}
-
 	return &tokenInfo, nil
 }
 
@@ -22,7 +21,6 @@ func (db *Database) GetZuluTokenInfoByAddressAndChainID(address, chainID string)
 	if err := db.DB.Where("dest_token_address = ? AND from_chain_id = ?", address, chainID).First(&tokenInfo).Error; err != nil {
 		return nil, err
 	}
-
 	return &tokenInfo, nil
 }
 
@@ -31,7 +29,6 @@ func (db *Database) GetZuluTokenInfoByFromTokenName(fromTokenName string) (*spec
 	if err := db.DB.Where("from_token_name = ?", fromTokenName).First(&tokenInfo).Error; err != nil {
 		return nil, err
 	}
-
 	return &tokenInfo, nil
 }
 
