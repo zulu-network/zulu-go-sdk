@@ -45,7 +45,7 @@ type ZuluDepositInfo struct {
 	DisplayCode string
 	FromAddress CITEXT `gorm:"type:citext"`
 	ToAddress   CITEXT `gorm:"type:citext"`
-	FromTxHash  string `gorm:"unique"`
+	FromTxHash  string
 	ToTxHash    string
 	Amount      string `gorm:"type:numeric"`
 	AbsAmount   string `gorm:"type:numeric"`
