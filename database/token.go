@@ -10,7 +10,7 @@ func (db *Database) CreateZuluTokenInfo(ti *spec.ZuluTokenInfo) error {
 
 func (db *Database) GetZuluTokenInfo(name, symbol string, decimals uint8, maxSupply string, tokenType int) (*spec.ZuluTokenInfo, error) {
 	var tokenInfo spec.ZuluTokenInfo
-	if err := db.DB.Where("dest_token_name = ? AND dest_token_address = ? AND dest_token_decimals = ? AND dest_token_max_supply = ? AND dest_token_type = ?", name, symbol, decimals, maxSupply, tokenType).First(&tokenInfo).Error; err != nil {
+	if err := db.DB.Where("dest_token_name = ? AND dest_token_symbol = ? AND dest_token_decimals = ? AND dest_token_max_supply = ? AND dest_token_type = ?", name, symbol, decimals, maxSupply, tokenType).First(&tokenInfo).Error; err != nil {
 		return nil, err
 	}
 	return &tokenInfo, nil
