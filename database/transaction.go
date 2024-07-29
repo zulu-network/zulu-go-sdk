@@ -112,6 +112,14 @@ func (db *Database) GetWithdrawTransaction(coboID string) (*spec.ZuluWithdrawInf
 	return &txInfo, nil
 }
 
+func (db *Database) GetWithdrawTransactionByTxHash(fromAddress, fromTxHash string) (*spec.ZuluWithdrawInfo, error) {
+	var txInfo spec.ZuluWithdrawInfo
+	if err := db.DB.Where("from_address = ? AND from_tx_hash = ?", fromAddress, fromTxHash).First(&txInfo).Error; err != nil {
+		return nil, err
+	}
+	return &txInfo, nil
+}
+
 func (db *Database) CreateAndGetWithdrawTransaction(tx *spec.ZuluWithdrawInfo) (*spec.ZuluWithdrawInfo, error) {
 	if err := db.DB.Create(tx).Error; err != nil {
 		return nil, err
