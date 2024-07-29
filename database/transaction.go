@@ -20,6 +20,14 @@ func (db *Database) CreateAndGetDepositTransaction(tx *spec.ZuluDepositInfo) (*s
 	return &txInfo, nil
 }
 
+func (db *Database) GetDepositTransaction(fromAddress, fromTxHash string) (*spec.ZuluDepositInfo, error) {
+	var txInfos spec.ZuluDepositInfo
+	if err := db.DB.Where("from_address = ? AND from_tx_hash = ?", fromAddress, fromTxHash).Order("created_at DESC").First(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 func (db *Database) ListDepositTransactionByAddress(fromAddress string) (*[]spec.ZuluDepositInfo, error) {
 	var txInfos []spec.ZuluDepositInfo
 	if err := db.DB.Where("from_address = ?", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
