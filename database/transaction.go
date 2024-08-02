@@ -151,6 +151,27 @@ func (db *Database) UpdateWithdrawTransaction(tx *spec.ZuluWithdrawInfo) error {
 	return db.DB.Save(tx).Error
 }
 
+// QuickCross
+func (db *Database) CreateQuickCrossTransaction(tx *spec.ZuluQuickCrossInfo) error {
+	return db.DB.Create(tx).Error
+}
+
+func (db *Database) ListQuickCrossTransactionByAddress(fromAddress string) (*[]spec.ZuluQuickCrossInfo, error) {
+	var txInfos []spec.ZuluQuickCrossInfo
+	if err := db.DB.Where("from_address = ?", fromAddress).Order("created_at DESC").Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
+func (db *Database) ListUnhandledQuickCrossTransactions(number int) (*[]spec.ZuluQuickCrossInfo, error) {
+	var txInfos []spec.ZuluQuickCrossInfo
+	if err := db.DB.Where("state = ?", spec.DepositTxStatePending).Order("created_at asc").Limit(number).Find(&txInfos).Error; err != nil {
+		return nil, err
+	}
+	return &txInfos, nil
+}
+
 ///Deprecated
 func (db *Database) GetDepositTransactionOld(txid, fromAddress string) (*spec.ZuluDepositTxInfo, error) {
 	var txInfo spec.ZuluDepositTxInfo

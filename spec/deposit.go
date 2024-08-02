@@ -56,6 +56,24 @@ type ZuluDepositInfo struct {
 	State       string `gorm:"not null;default:'pending'"`
 }
 
+type ZuluQuickCrossInfo struct {
+	gorm.Model
+	CoboID      string `gorm:"unique"`
+	Coin        string
+	ChainCode   string
+	DisplayCode string
+	FromAddress CITEXT `gorm:"type:citext"`
+	ToAddress   CITEXT `gorm:"type:citext"`
+	FromTxHash  string
+	ToTxHash    string
+	Amount      string `gorm:"type:numeric"`
+	BtcAmount   string `gorm:"type:numeric"`
+	BridgeFee   string `gorm:"type:numeric"`
+	Decimals    int
+	BlockHeight int
+	State       string `gorm:"not null;default:'pending'"`
+}
+
 // Deprecated
 type ZuluDepositTxInfo struct {
 	gorm.Model
