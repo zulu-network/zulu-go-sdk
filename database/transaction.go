@@ -172,6 +172,10 @@ func (db *Database) ListUnhandledQuickCrossTransactions(number int) (*[]spec.Zul
 	return &txInfos, nil
 }
 
+func (db *Database) UpdateQuickCrossTransaction(tx *spec.ZuluQuickCrossInfo) error {
+	return db.DB.Save(tx).Error
+}
+
 ///Deprecated
 func (db *Database) GetDepositTransactionOld(txid, fromAddress string) (*spec.ZuluDepositTxInfo, error) {
 	var txInfo spec.ZuluDepositTxInfo
