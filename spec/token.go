@@ -47,7 +47,7 @@ type CrossTokenInfo struct {
 	ChainID       string `gorm:"not null;"`
 	ChainCode     string `gorm:"not null;"`
 	TokenAddress  string `gorm:"unique;not null"`
-	BridgeFee     string `gorm:"not null;"`
+	ServiceFee    string `gorm:"not null;"`
 	MinimumAmount string `gorm:"not null;"`
 	LogoUrl       string `gorm:"not null;"`
 }
