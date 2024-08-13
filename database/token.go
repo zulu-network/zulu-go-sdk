@@ -53,6 +53,30 @@ func (db *Database) ListZuluTokenInfo() (*[]spec.ZuluTokenInfo, error) {
 	return &tokenInfos, nil
 }
 
+func (db *Database) CreateCrossTokenInfo(ti *spec.CrossTokenInfo) error {
+	return db.DB.Create(ti).Error
+}
+
+func (db *Database) GetCrossTokenInfo(name string) (*spec.CrossTokenInfo, error) {
+	var tokenInfo spec.CrossTokenInfo
+	if err := db.DB.Where("name = ? ", name).First(&tokenInfo).Error; err != nil {
+		return nil, err
+	}
+	return &tokenInfo, nil
+}
+
+func (db *Database) UpdateCrossTokenInfo(tx *spec.CrossTokenInfo) error {
+	return db.DB.Save(tx).Error
+}
+
+func (db *Database) ListCrossTokenInfo() (*[]spec.CrossTokenInfo, error) {
+	var tokenInfos []spec.CrossTokenInfo
+	if err := db.DB.Find(&tokenInfos).Error; err != nil {
+		return nil, err
+	}
+	return &tokenInfos, nil
+}
+
 // Deprecated
 func (db *Database) CreateL1TokenInfo(l1ti *spec.L1TokenInfo) error {
 	return db.DB.Create(l1ti).Error

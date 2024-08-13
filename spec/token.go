@@ -39,6 +39,19 @@ type ZuluTokenInfo struct {
 	LogoUrl            string `gorm:"not null;"`
 }
 
+type CrossTokenInfo struct {
+	gorm.Model
+	Name          string `gorm:"unique;not null;"`
+	Symbol        string `gorm:"not null;"`
+	Decimals      uint8  `gorm:"not null;"`
+	ChainID       string `gorm:"not null;"`
+	ChainCode     string `gorm:"not null;"`
+	TokenAddress  string `gorm:"unique;not null"`
+	BridgeFee     string `gorm:"not null;"`
+	MinimumAmount string `gorm:"not null;"`
+	LogoUrl       string `gorm:"not null;"`
+}
+
 // Deprecated
 type L1TokenInfo struct {
 	gorm.Model
