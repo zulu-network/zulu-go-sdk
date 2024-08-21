@@ -27,6 +27,7 @@ type ZuluTokenInfo struct {
 	FromChainID        string `gorm:"not null;index:idx_tokenaddress_chainid,unique"`
 	FromTokenDecimals  uint8  `gorm:"not null"`
 	FromTokenAddress   string `gorm:"not null"`
+	RecipientAddress   string `gorm:"not null"`
 	DestTokenName      string `gorm:"not null;"`
 	DestTokenSymbol    string `gorm:"not null;"`
 	DestTokenDecimals  uint8  `gorm:"not null;"`
@@ -41,16 +42,16 @@ type ZuluTokenInfo struct {
 
 type CrossTokenInfo struct {
 	gorm.Model
-	Name          string `gorm:"unique;not null;"`
-	Symbol        string `gorm:"not null;"`
-	Decimals      uint8  `gorm:"not null;"`
-	ChainID       string `gorm:"not null;"`
-	ChainCode     string `gorm:"not null;"`
-	TokenAddress  string `gorm:"unique;not null"`
-	PayeeAddress  string `gorm:"not null"`
-	ServiceFee    string `gorm:"not null;"`
-	MinimumAmount string `gorm:"not null;"`
-	LogoUrl       string `gorm:"not null;"`
+	Name             string `gorm:"unique;not null;"`
+	Symbol           string `gorm:"not null;"`
+	Decimals         uint8  `gorm:"not null;"`
+	ChainID          string `gorm:"not null;"`
+	ChainCode        string `gorm:"not null;"`
+	TokenAddress     string `gorm:"unique;not null"`
+	RecipientAddress string `gorm:"not null"`
+	ServiceFee       string `gorm:"not null;"`
+	MinimumAmount    string `gorm:"not null;"`
+	LogoUrl          string `gorm:"not null;"`
 }
 
 // Deprecated
