@@ -23,6 +23,7 @@ const (
 type ZuluTokenInfo struct {
 	gorm.Model
 	FromTokenName      string `gorm:"unique;not null;"`
+	FromTokenSymbol    string `gorm:"not null;"`
 	FromChainCode      string `gorm:"not null"`
 	FromChainID        string `gorm:"not null;"`
 	FromTokenDecimals  uint8  `gorm:"not null"`
