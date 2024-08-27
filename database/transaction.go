@@ -69,7 +69,7 @@ func (db *Database) GetAmountsByFromAddress(fromAddress string) ([]spec.CoinAmou
 	err := db.DB.Model(&spec.ZuluDepositInfo{}).
 		Select("coin, chain_code, display_code, decimals, COALESCE(SUM(amount), 0) as amount, COALESCE(SUM(abs_amount), 0) as abs_amount").
 		Where("from_address = ?", fromAddress).
-		Group("coin, chain_code, display_code, decimals, chain_code").
+		Group("coin, chain_code, display_code, decimals").
 		Scan(&coinAmounts).Error
 
 	return coinAmounts, err
