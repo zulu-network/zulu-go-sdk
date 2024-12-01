@@ -12,6 +12,7 @@ const (
 	TokenTypeETH  = 1000
 	TokenTypeUSDT = 1001
 	TokenTypeUSDC = 1002
+	TokenTypeZULU = 1003
 
 	TokenTypeBNB     = 2000
 	TokenTypeFDUSD   = 2001
